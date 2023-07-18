@@ -35,7 +35,7 @@ const minus = (a, b) => {
             break
         }
     }
-    if (temp !== -1) {
+    if (temp !== 0) {
         result.splice(0, temp)
     }
     return result.join("") === "" ? "0" : result.join("")
@@ -98,6 +98,8 @@ const divide = (a, b) => {
             temp = []
         } else if (compare(temp, b) === 0) {
             result = result + "1"
+            a.splice(0, temp.length);
+            i = -1
             temp = []
         } else if (compare(temp, b) === 1) {
             for(let j = 2; j < 11; j++) {
@@ -114,9 +116,23 @@ const divide = (a, b) => {
                     break
                 }
             }
+        } else {
+            result = result + "0"
         }
     }
-    return result
+    result = [...result]
+    let zeroCount = 0
+    for (let i = 0; i < result.length; i++) {
+        if (result[i] === "0") {
+            ++zeroCount
+        } else {
+            break
+        }
+    }
+    if (zeroCount !== 0) {
+        result.splice(0, zeroCount)
+    }
+    return result.join("") === "" ? "0" : result.join("")
 }
 
 const compare = (firstNumberArray, secondNumberArray) => {
@@ -138,6 +154,6 @@ const compare = (firstNumberArray, secondNumberArray) => {
 }
 
 console.log(sum("999999999999999999999999999999999", "999999999999999999999999999999999"))
-console.log(minus("99", "99"))
+console.log(minus("109", "99"))
 console.log(multiply("654834834897438348834838349832892", "74747"))
-console.log(divide("48946939404078824260357662134959178324", "654834834897438348834838349832892"))
+console.log(divide("2222222222", "22"))
